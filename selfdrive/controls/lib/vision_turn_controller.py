@@ -10,8 +10,9 @@ from selfdrive.controls.lib.drive_helpers import V_CRUISE_MAX
 
 
 _MIN_V = 5.6  # Do not operate under 20km/h
+_MAX_V = 25.  # Do not operate above 108km/h
 
-_ENTERING_PRED_LAT_ACC_TH = 1.5  # Predicted Lat Acc threshold to trigger entering turn state.
+_ENTERING_PRED_LAT_ACC_TH = 1.6  # Predicted Lat Acc threshold to trigger entering turn state.
 _ABORT_ENTERING_PRED_LAT_ACC_TH = 1.3  # Predicted Lat Acc threshold to abort entering state if speed drops.
 
 _TURNING_LAT_ACC_TH = 1.8  # Lat Acc threshold to trigger turning turn state.
@@ -234,6 +235,8 @@ class VisionTurnController():
     if self.state == VisionTurnControllerState.disabled:
       # Do not enter a turn control cycle if speed is low.
       if self._v_ego <= _MIN_V:
+        pass
+      elif self._v_ego >= _MAX_V:
         pass
       # If substantial lateral acceleration is predicted ahead, then move to Entering turn state.
       elif self._max_pred_lat_acc >= _ENTERING_PRED_LAT_ACC_TH:
