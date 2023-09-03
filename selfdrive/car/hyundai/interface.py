@@ -167,10 +167,15 @@ class CarInterface(CarInterfaceBase):
       ret.wheelbase = 2.78
       ret.steerRatio = 14.4 * 1.1   # 10% higher at the center seems reasonable
     elif candidate in (CAR.KIA_NIRO_EV, CAR.KIA_NIRO_EV_2ND_GEN, CAR.KIA_NIRO_PHEV, CAR.KIA_NIRO_HEV_2021, CAR.KIA_NIRO_HEV_2ND_GEN):
-      ret.mass = 3543. * CV.LB_TO_KG  # average of all the cars
+      ret.mass = 2200  # average of all the cars
       ret.wheelbase = 2.7
       ret.steerRatio = 13.6  # average of all the cars
-      ret.tireStiffnessFactor = 0.385
+      ret.tireStiffnessFactor = 0.8
+      ret.lateralTuning.torque.useSteeringAngle = True
+      ret.lateralTuning.torque.kp = 0.8
+      ret.lateralTuning.torque.ki = 0.25
+      ret.lateralTuning.torque.kf = 1.0 # use with custom torque ff
+      ret.lateralTuning.torque.friction = 0.003
       if candidate == CAR.KIA_NIRO_PHEV:
         ret.minSteerSpeed = 32 * CV.MPH_TO_MS
     elif candidate in (CAR.KIA_SELTOS, CAR.KIA_SELTOS_2023_NON_SCC):
