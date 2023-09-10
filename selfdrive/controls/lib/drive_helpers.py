@@ -164,7 +164,7 @@ class VCruiseHelper:
 
     # If set is pressed while overriding, clip cruise speed to minimum of vEgo
     if CS.gasPressed and button_type in (ButtonType.decelCruise, ButtonType.setCruise):
-      self.v_cruise_kph = max(self.v_cruise_kph, CS.vEgo * CV.MS_TO_KPH)
+      self.v_cruise_kph = max(self.v_cruise_kph, CS.vEgoCluster * CV.MS_TO_KPH)
 
     self.v_cruise_kph = clip(round(self.v_cruise_kph, 1), self.v_cruise_min, V_CRUISE_MAX)
 
@@ -207,7 +207,7 @@ class VCruiseHelper:
     if any(b.type in resume_buttons for b in CS.buttonEvents) and self.v_cruise_kph_last < 250:
       self.v_cruise_kph = self.v_cruise_kph_last
     else:
-      self.v_cruise_kph = int(round(clip(CS.vEgo * CV.MS_TO_KPH, initial, V_CRUISE_MAX)))
+      self.v_cruise_kph = int(round(clip(CS.vEgoCluster * CV.MS_TO_KPH, initial, V_CRUISE_MAX)))
 
     self.v_cruise_cluster_kph = self.v_cruise_kph
 
